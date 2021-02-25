@@ -1,0 +1,17 @@
+class Node {
+  int data;
+  Node next;
+  Node (int data) {
+    this.data = data;
+  }
+}
+
+int countNodes(Node head) {
+  int count = 1;
+  Node current = head; //current is to keep track of the current node, let current be the head first and count from head
+  while(current.next != null) {
+    current = current.next;
+    count += 1;
+  }
+  return count;
+}
