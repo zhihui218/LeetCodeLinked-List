@@ -1,0 +1,24 @@
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        
+        ListNode prev = null;
+        
+        while(head != null){
+            ListNode nextNode = head.next;
+            head.next = prev; //1st
+            prev = head;      //2nd
+            head = nextNode;  //3rd
+        }
+        return prev;
+    }
+}
+
+Exp : 1 -> 2 -> 3 -> 4 -> 5
+prev = null , head = 1 , head.next = 2
+1st : head.next (2) = prev
+2nd : prev (2) = head -> head = 2 
+3rd : head (1) = nextNode 
+first cycle : 2 -> 1 -> 3 -> 4 -> 5
+second cycle : 3 -> 2 -> 1 -> 4 -> 5
+third cycle : 4 -> 3 -> 2 -> 1 -> 5
+fourth cycle : 5 -> 4 -> 3 -> 2 -> 1
