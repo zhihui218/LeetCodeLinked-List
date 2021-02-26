@@ -1,0 +1,17 @@
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        Set<ListNode> visited = new HashSet<>(); //create a HashSet
+        while(headA != null){
+            visited.add(headA); //add headA into HashSet
+            headA = headA.next; //move headA to the next node, so every single time adding next node into HashSet
+        }
+        
+        while(headB != null){ 
+            if(visited.contains(headB)){
+                return headB; //intersection point
+            }
+            headB = headB.next; //move headB to the next node
+        }
+        return null;
+    }
+}
