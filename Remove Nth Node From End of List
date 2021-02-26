@@ -1,0 +1,26 @@
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode curr = new ListNode(0); //exp: 0->1->2->3->4->5
+        curr.next = head;
+        
+        ListNode slow = curr;
+        ListNode fast = curr;
+        
+        //let fast move to position n+1
+        for(int i=1; i<=n+1; i++){
+            fast = fast.next;  // 1st
+        }
+    
+        while(fast != null){ // 2nd
+            slow = slow.next;
+            fast = fast.next;
+        }
+        slow.next = slow.next.next; //3rd
+        return curr.next;
+    }
+}
+
+exp linked list : 1->2->3->4->5 ; n=2
+1st : fast = 4
+2nd : slow=1, fast=4 -> slow=2, fast=5 -> slow=3, fast=null 
+3rd : slow at index 3 equals to 5
