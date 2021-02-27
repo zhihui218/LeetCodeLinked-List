@@ -1,0 +1,19 @@
+class Solution {
+    public ListNode oddEvenList(ListNode head) {
+        
+        if(head == null) return null;
+        
+        ListNode odd = head; //1
+        ListNode even = head.next; //2
+        ListNode evenHead = even; //2
+        
+        while(even != null && even.next != null){
+            odd.next = even.next; // next odd node is 3
+            odd = odd.next; //link odd nodes -> 1,3 -> 1,3,5
+            even.next = odd.next; // next even node is 4
+            even = even.next; //link even nodes -> 2,4
+        }
+        odd.next = evenHead; // after 1,3,5 is 2,4
+        return head;
+    }
+}
