@@ -1,0 +1,82 @@
+Method 1 (failed to pass 999999 + 999)
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        
+        ListNode dummy = new ListNode (0);
+        ListNode l3 = dummy;
+        int carry = 0;
+        
+        while(l1 != null && l2 != null){
+            int l1_val = (l1 != null) ? l1.val : 0;
+            int l2_val = (l2 != null) ? l2.val : 0;
+            
+            int sum = l1_val + l2_val + carry; 
+            carry = sum / 10; 
+            int lastDigit = sum % 10; 
+            
+            ListNode newNode = new ListNode(lastDigit);
+            l3.next = newNode;
+            
+            if(l1 != null) l1 = l1.next;
+            if(l2 != null) l2 = l2.next;
+            l3 = l3.next;
+        }
+        
+        if(carry > 0){
+            ListNode newNode = new ListNode (carry);
+            l3.next = newNode;
+            l3 = l3.next;
+        }
+        return dummy.next;
+    }
+}
+
+Method 2 (also failed to pass all cases)
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        Stack<Integer> stack1 = addListValToStack(l1);
+        Stack<Integer> stack2 = addListValToStack(l2);
+        
+        ListNode head = null;        
+        int carry = 0;
+        
+        while(stack1.size() > 0 || stack2.size() > 0 || carry != 0) {
+            int sum = carry;
+            
+            if(stack1.size() > 0) sum += stack1.pop();
+            if(stack2.size() > 0) sum += stack2.pop();
+            
+            ListNode newNode = new ListNode(sum % 10);
+            newNode.next = head;
+            head = newNode;
+            
+            carry = sum / 10;
+        }
+        head = reversed(head);
+        return head;
+    }
+    
+    private Stack<Integer> addListValToStack(ListNode list) {
+        Stack<Integer> st = new Stack<>();
+        
+        while(list != null) {
+            st.add(list.val);
+            list = list.next;
+        }
+        
+        return st;
+    }
+    
+    private ListNode reversed(ListNode list){
+        
+        ListNode prev = null;
+        
+        while(list != null){
+            ListNode next = list.next;
+            list.next = prev;
+            prev = list;
+            list = next;
+        }
+        return prev;
+    }
+}
