@@ -11,7 +11,7 @@ class MyLinkedList {
         }    
     }
     
-    public MyLinkedList(){
+    public MyLinkedList(){ //constructor
         this.length = 0;
         this.head = null;
     }
