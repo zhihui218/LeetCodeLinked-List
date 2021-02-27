@@ -1,0 +1,43 @@
+class Solution {
+    public ListNode rotateRight(ListNode head, int k) {
+        
+        if(head == null) return null;
+        
+        int length = 1;
+        ListNode tail = head;
+        
+        while(tail.next != null){ //1st
+            ++length;
+            tail = tail.next;
+        }
+        
+        k %= length; //if k > length, rotating k equals to rotating k%length
+        
+        if(k == 0){ //2nd
+            return head;
+        }
+        
+        int stepsToNewHead = length - k; //3rd
+        tail.next = head; //4th 
+        ListNode newTail = tail; 
+        
+        while(stepsToNewHead-- > 0){ //5th
+            newTail = newTail.next; 
+        }
+        ListNode newHead = newTail.next; //6th
+        newTail.next = null; //7th
+        return newHead;
+    }
+}
+
+Exp : 1,2,3,4,5 ; k = 2
+      *index start from 0
+1st : by the end of loop, tail = 5
+2nd : if k=0, return the original list
+3rd : to find new head after rotating, use length minus k (5 - 2 = 3) index 3 -> 4
+4th : connect tail to the head, make a cycle 
+5th : while rotating k times, new tail move backwards
+      if rotate 1 time, newTail (original is 5) become 4 
+      stepsToNewHead-- (3 -> 2)
+6th : newHead = 3 
+7th : break the tail to end the linked list
