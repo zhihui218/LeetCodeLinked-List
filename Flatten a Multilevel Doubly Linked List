@@ -1,0 +1,31 @@
+class Solution {
+    public Node flatten(Node head) {
+        
+        if(head == null) return null;
+        
+        Node temp = head;
+        
+        while(temp != null){
+            
+            if(temp.child != null){
+                Node next = temp.next; //initialise next variable as temp.next for the first level linked list
+                Node child = flatten(temp.child);
+                temp.child = null; //as temp in the child list become null (reach the end of child list), return head of child list
+                temp.next = child; //link temp to child
+                child.prev = temp; //link child to temp
+                while(child.next != null){
+                    child = child.next; //link child and next child together 
+                }
+                child.next = next; //store next child to next variable 
+                if(next != null){
+                    next.prev = child;
+                    temp = child; 
+                }
+            }
+            temp = temp.next;
+        }
+        return head;
+    }
+}
+
+YouTube link : https://youtu.be/A7leG9StaJ8
