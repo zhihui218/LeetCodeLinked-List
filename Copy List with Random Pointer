@@ -1,0 +1,53 @@
+/*
+// Definition for a Node.
+class Node {
+    int val;
+    Node next;
+    Node random;
+
+    public Node(int val) {
+        this.val = val;
+        this.next = null;
+        this.random = null;
+    }
+}
+*/
+
+class Solution {
+    public Node copyRandomList(Node head) {
+        
+        if(head == null) return null;
+        
+        Map<Node, Node> map = new HashMap<>(); // LHS store oldNode ; RHS store newNode
+        
+        Node dummy = new Node(0);
+        Node curr = dummy;
+        Node newNode = null;
+        
+        while(head != null){
+            if(map.containsKey(head)){
+                newNode = map.get(head); //get the oldNote
+            }
+            else{
+                newNode = new Node(head.val); //create copy version newNode
+                map.put(head, newNode); //store oldNode and newNode into map
+            }
+            
+            if(head.random != null){
+                if(map.containsKey(head.random)){
+                    newNode.random = map.get(head.random); //get the oldNote
+                }
+                else{
+                    newNode.random = new Node(head.random.val); //create copy version newNode
+                    map.put(head.random, newNode.random); //store oldNode and newNode into map
+                }
+            }
+            curr.next = newNode; //next curr (!=0) = newNode
+            curr = newNode; 
+            head = head.next;
+        }
+        return dummy.next;
+    }
+}
+
+YouTube : https://youtu.be/ZEQpNhEFCxE
